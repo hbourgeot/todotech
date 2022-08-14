@@ -13,3 +13,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 }
+
+func login(w http.ResponseWriter, r *http.Request) {
+
+}
