@@ -1,1 +1,3 @@
 .idea/
+./ui/static/css/styles.css
+node_modules/

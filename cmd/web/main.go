@@ -25,5 +25,9 @@ func main() {
 		Addr:    ":4000",
 		Handler: app.routes(),
 	}
-	TodoTechSrv.ListenAndServe()
+
+	err := TodoTechSrv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

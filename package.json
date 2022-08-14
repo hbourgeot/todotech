@@ -1,0 +1,33 @@
+{
+  "name": "todotech",
+  "version": "1.0.0",
+  "description": "TodoTech Web Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hbourgeot/todotech.git"
+  },
+  "keywords": [
+    "Golang",
+    "Backend",
+    "Web",
+    "Development",
+    "JavaScript",
+    "DaisyUI"
+  ],
+  "author": "Henrry Bourgeot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hbourgeot/todotech/issues"
+  },
+  "homepage": "https://github.com/hbourgeot/todotech#readme",
+  "dependencies": {
+    "daisyui": "^2.24.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
+  }
+}

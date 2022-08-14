@@ -1,18 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 )
 
 func (app *application) routes() *http.ServeMux {
 	mux := http.NewServeMux()
 
+	directory := http.FileServer(http.Dir("./ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static/", directory))
 	mux.HandleFunc("/", home)
 
 	return mux
-}
-
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello world!")
 }
