@@ -10,6 +10,7 @@ func (app *application) routes() *http.ServeMux {
 	directory := http.FileServer(http.Dir("./ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static/", directory))
 	mux.HandleFunc("/", home)
+	mux.HandleFunc("/admin", login)
 
 	return mux
 }

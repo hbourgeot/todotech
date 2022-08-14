@@ -11,9 +11,15 @@ func home(w http.ResponseWriter, r *http.Request) {
 	err := temp.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-
+	temp := template.Must(template.ParseFiles("./ui/login.html"))
+	err := temp.Execute(w, nil)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 }
