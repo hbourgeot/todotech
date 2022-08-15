@@ -1,26 +1,17 @@
 package crud
 
-import "time"
-
 type Clients struct {
 	Username string
 	Password string
-}
-
-type ClientsInfo struct {
-	CompleteName string
-	Phone        string
-	Birth        time.Time
-	Country      string
+	Country  string
 }
 
 type Products struct {
-	Cod            int
-	Name           string
-	Brand          string
-	Description    string
-	Price          float32
-	InventoryCount int
+	Code     int     `json:"code"`
+	Name     string  `json:"name"`
+	Cat      string  `json:"cat"`
+	ImageUrl string  `json:"imageUrl"`
+	Price    float64 `json:"price"`
 }
 
 type Orders struct {

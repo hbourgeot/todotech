@@ -8,12 +8,13 @@
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body>
-<div class="flex justify-around ">
-    <div class="card ml-3 w-96 bg-primary text-primary-content shadow-xl">
+<body class="flex">
+<div class="flex flex-col mx-5 space-y-5">
+    <div class="card w-96 bg-primary text-primary-content shadow-xl">
         <div class="card-body">
             <h2 class="card-title">Insert Product</h2>
-            <form method="post" class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
+            <form method="post" action="/admin/panel/ins"
+                  class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
                 <div class="px-4 py-8 sm:px-10">
                     <div class="relative mt-6">
                         <div class="absolute inset-0 flex items-center">
@@ -25,42 +26,43 @@
                         <div class="w-full space-y-6">
                             <div class="w-full">
                                 <div class=" relative ">
-                                    <input type="text" id="insert-code" name="insert-code"
+                                    <input type="text" id="insert-code" required name="insert-code"
                                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                            placeholder="Product Code"/>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class=" relative ">
-                                    <input type="text" id="insert-name" name="insert-name" maxlength="255"
+                                    <input type="text" id="insert-name" required name="insert-name" maxlength="255"
                                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                            placeholder="Product Name"/>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class=" relative ">
-                                    <input type="text" id="insert-cat" name="insert-cat" maxlength="100"
+                                    <input type="text" id="insert-cat" required name="insert-cat" maxlength="100"
                                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                           placeholder="Product categorie"/>
+                                           placeholder="Product category"/>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class=" relative ">
-                                    <input type="text" id="insert-price" name="insert-price" maxlength="100"
+                                    <input type="text" id="insert-price" required name="insert-price" maxlength="100"
                                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                           placeholder="Your name"/>
+                                           placeholder="Product price"/>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class=" relative ">
-                                    <input type="text" id="insert-imageurl" name="insert-imageurl" maxlength="100"
+                                    <input type="text" id="insert-imageurl" required name="insert-imageurl"
+                                           maxlength="100"
                                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                            placeholder="Image URL"/>
                                 </div>
                             </div>
                             <div>
                                 <span class="block w-full rounded-md shadow-sm">
-                                    <button type="button"
+                                    <button type="submit"
                                             class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                         Submit
                                     </button>
@@ -75,7 +77,8 @@
     <div class="card w-96 bg-primary text-primary-content shadow-xl h-[fit-content]">
         <div class="card-body">
             <h2 class="card-title">Delete Product</h2>
-            <form method="post" class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
+            <form method="post" action="/admin/panel/del"
+                  class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
                 <div class="px-4 py-8 sm:px-10">
                     <div class="relative mt-6">
                         <div class="absolute inset-0 flex items-center">
@@ -94,7 +97,7 @@
                             </div>
                             <div>
                                 <span class="block w-full rounded-md shadow-sm">
-                                    <button type="button"
+                                    <button type="submit"
                                             class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                         Submit
                                     </button>
@@ -114,7 +117,8 @@
     <div class="card w-96 bg-primary text-primary-content shadow-xl h-[fit-content]">
         <div class="card-body">
             <h2 class="card-title">Update Product</h2>
-            <form method="post" class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
+            <form method="post" action="/admin/panel/upda"
+                  class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
                 <div class="px-4 py-8 sm:px-10">
                     <div class="relative mt-6">
                         <div class="absolute inset-0 flex items-center">
@@ -147,7 +151,7 @@
                             </div>
                             <div>
                                 <span class="block w-full rounded-md shadow-sm">
-                                    <button type="button"
+                                    <button type="submit"
                                             class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                         Submit
                                     </button>
@@ -165,6 +169,22 @@
         </div>
     </div>
 </div>
+<div class="overflow-x-auto ml-5 w-full h-[fit-content] sticky top-0">
+    <table class="table table-compact w-full">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Image URL</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 
+<script src="/static/js/panel.js"></script>
 </body>
 </html>

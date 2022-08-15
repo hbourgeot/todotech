@@ -13,6 +13,10 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/not-found", notFound)
 	mux.HandleFunc("/admin", login)
 	mux.HandleFunc("/admin/panel/", adminCRUD)
+	mux.HandleFunc("/admin/panel/ins", adminCreate)
+	mux.HandleFunc("/admin/panel/read", adminShow)
+	mux.HandleFunc("/admin/panel/upda", adminUpdate)
+	mux.HandleFunc("/admin/panel/del", adminDelete)
 	mux.HandleFunc("/submit", loginAdm)
 
 	return mux
