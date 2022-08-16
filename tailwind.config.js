@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const theme = require("tailwindcss/defaultTheme");
 module.exports = {
     content: ["./ui/**/*.{html,js}"],
     theme: {
@@ -29,5 +30,8 @@ module.exports = {
         require('@tailwindcss/typography'),
         require("@tailwindcss/forms"),
         require("daisyui")
+    ],
+    daisyui: [
+        themes: ["winter"],
     ],
 }

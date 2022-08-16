@@ -11,6 +11,7 @@ func (app *application) routes() *http.ServeMux {
 	mux.Handle("/static/", http.StripPrefix("/static/", directory))
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/not-found", notFound)
+	mux.HandleFunc("/products", showProducts)
 	mux.HandleFunc("/admin", login)
 	mux.HandleFunc("/admin/panel/", adminCRUD)
 	mux.HandleFunc("/admin/panel/ins", adminCreate)

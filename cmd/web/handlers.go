@@ -273,3 +273,12 @@ func adminDelete(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/admin/panel?login=true", http.StatusSeeOther)
 }
+
+func showProducts(w http.ResponseWriter, r *http.Request) {
+	temp := template.Must(template.ParseFiles("./ui/products.html"))
+	err := temp.Execute(w, nil)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+}
