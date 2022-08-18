@@ -282,3 +282,34 @@ func showProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func newOrder(w http.ResponseWriter, r *http.Request) {
+	var order crud.JSONorder
+	err := json.NewDecoder(r.Body).Decode(&order)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	var cart []int
+	for i := range order.Cart {
+		product, err := strconv.Atoi(order.Cart[i])
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		cart = append(cart, product)
+	}
+	err = crud.CreateClient(order.UserName, order.Name, order.Country)
+	if err != nil {
+		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
+	}
+
+	err = crud.GenerateOrder(order.UserName, cart)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+}

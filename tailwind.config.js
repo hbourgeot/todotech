@@ -31,7 +31,7 @@ module.exports = {
         require("@tailwindcss/forms"),
         require("daisyui")
     ],
-    daisyui: [
+    daisyui: {
         themes: ["winter"],
-    ],
+    },
 }

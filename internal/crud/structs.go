@@ -1,5 +1,12 @@
 package crud
 
+type JSONorder struct {
+	Name     string
+	UserName string
+	Country  string
+	Cart     []string
+}
+
 type Clients struct {
 	Username string
 	Password string
