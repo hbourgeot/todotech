@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  store:
+    container_name: "todotech-store"
+    build: .
+    ports:
+      - 80:80
+    restart: on-failure
+    volumes:
+      - api:/usr/src/go
+    depends_on:
+      - store-db
+    networks:
+      - store-bridge
+
+  store-db:
+    image: postgres:latest
+    container_name: todotech-pg
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    ports:
+      - "5432:5432"
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - store-bridge
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: store-db-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - store-db
+    ports:
+      - 5050:5050
+    networks:
+      - store-bridge
+    restart: unless-stopped
+
+volumes:
+  api:
+  database_postgres:
+
+networks:
+  store-bridge:
+    driver: bridge

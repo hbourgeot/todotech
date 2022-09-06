@@ -8,23 +8,27 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"todotech/internal/crud"
 	"unicode/utf8"
+
+	"todotech/internal/crud"
 )
 
+// Function for enable CORS
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
+// parse the index page
 func home(w http.ResponseWriter, r *http.Request) {
-
 	enableCors(&w)
 
+	// set the not-found error
 	if r.URL.Path != "/" {
 		http.Redirect(w, r, "/not-found", http.StatusSeeOther)
 		return
 	}
 
+	// create the template
 	temp := template.Must(template.ParseFiles("./ui/index.go.html"))
 	err := temp.Execute(w, nil)
 	if err != nil {
@@ -34,6 +38,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
 	temp := template.Must(template.ParseFiles("./ui/404.html"))
 	err := temp.Execute(w, nil)
 	if err != nil {
@@ -80,7 +85,6 @@ func loginAdm(w http.ResponseWriter, r *http.Request) {
 }
 
 func adminCRUD(w http.ResponseWriter, r *http.Request) {
-
 	if r.URL.Query().Get("login") != "true" {
 
 		http.Redirect(w, r, "/not-found", http.StatusSeeOther)
@@ -311,5 +315,4 @@ func newOrder(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-
 }
