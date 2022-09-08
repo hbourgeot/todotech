@@ -43,7 +43,21 @@
         <a href="#cart" id="order" class="btn btn-primary ml-3">See Order</a>
     </div>
 </div>
-<div class="flex flex-wrap gap-3 justify-between mt-5 container mx-auto mb-5"></div>
+<div class="flex flex-wrap gap-3 justify-between mt-5 container mx-auto mb-5">
+{{range .Products}}
+  <div class="shadow-lg rounded-3xl bg-white w-80 p-2">
+    <img class="w-32 p-4 h-36 m-auto" src="{{.ImageUrl}}">
+    <div class="bg-primary m-3 p-4 rounded-lg">
+        <p class="text-white text-xl font-bold">{{.Name}}</p>
+        <p class="text-gray50 text-xs">{{.Cat}}</p>
+        <div class="flex items-center justify-between">
+            <p class="text-white">{{.Price}}$</p>
+            <button type="button" product-code="{{.Code}}" class="btn btn-secondary btn-circle text-2xl font-bold">
+        </div>
+    </div>
+    </div>
+{{end}}
+</div>
 
 <div class="bg-gray-100 mt-5" id="cart">
     <div class="container mx-auto mt-10">

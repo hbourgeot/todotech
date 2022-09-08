@@ -181,10 +181,18 @@
         </tr>
         </thead>
         <tbody>
+        {{range .Products}}
+            <tr>
+                <td>{{.Code}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Cat}}</td>
+                <td>{{.Price}}</td>
+                <td>{{.ImageUrl}}</td>
+            </tr>
+        {{end}}
         </tbody>
     </table>
 </div>
 
-<script src="/static/js/products.js"></script>
 </body>
 </html>

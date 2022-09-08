@@ -13,23 +13,23 @@ import (
 	"todotech/internal/crud"
 )
 
-// Function for enable CORS
+type templateData struct {
+	Products []*crud.Products
+}
+
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
-// parse the index page
 func home(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	// set the not-found error
 	if r.URL.Path != "/" {
 		http.Redirect(w, r, "/not-found", http.StatusSeeOther)
 		return
 	}
 
-	// create the template
-	temp := template.Must(template.ParseFiles("./ui/index.go.html"))
+	temp := template.Must(template.ParseFiles("/go/src/todotech/ui/index.go.html"))
 	err := temp.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -38,8 +38,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotFound)
-	temp := template.Must(template.ParseFiles("./ui/404.html"))
+	temp := template.Must(template.ParseFiles("/go/src/todotech/ui/404.html"))
 	err := temp.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -48,7 +47,7 @@ func notFound(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	temp := template.Must(template.ParseFiles("./ui/login.html"))
+	temp := template.Must(template.ParseFiles("/go/src/todotech/ui/login.html"))
 	err := temp.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -69,7 +68,7 @@ func loginAdm(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(user) == "" {
 		loginErrors["username"] = "This field cannot be blank"
 	} else if utf8.RuneCountInString(user) > 100 {
-		loginErrors["username"] = "This field cannot be more than 100 characters long"
+		loginErrors["username"] = "This field cannot be more than 100 character"
 	}
 
 	if strings.TrimSpace(pass) == "" {
@@ -86,13 +85,22 @@ func loginAdm(w http.ResponseWriter, r *http.Request) {
 
 func adminCRUD(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("login") != "true" {
-
 		http.Redirect(w, r, "/not-found", http.StatusSeeOther)
 		return
 	}
 
-	temp := template.Must(template.ParseFiles("./ui/panel.html"))
-	err := temp.Execute(w, nil)
+	products, err := crud.GetAllProducts()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	data := &templateData{
+		Products: products,
+	}
+
+	temp := template.Must(template.ParseFiles("/go/src/todotech/ui/panel.gohtml"))
+	err = temp.Execute(w, data)
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -139,7 +147,6 @@ func adminCreate(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(name) == "" {
 		insertErrors["name"] = "Please enter the product name"
 	}
-
 	if strings.TrimSpace(cat) == "" {
 		insertErrors["cat"] = "Please enter the category"
 	}
@@ -193,7 +200,7 @@ func adminUpdate(w http.ResponseWriter, r *http.Request) {
 		insertErrors["code"] = "The code must be different than 0"
 	}
 
-	if strings.TrimSpace(colToUpdate) == "" || len(strings.TrimSpace(colToUpdate)) < 3 {
+	if strings.TrimSpace(colToUpdate) == "" || len(strings.TrimSpace(colToUpdate)) == 0 {
 		insertErrors["image"] = "Please enter the complete column to update"
 	}
 
@@ -205,7 +212,6 @@ func adminUpdate(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, insertErrors)
 		return
 	}
-
 	switch colToUpdate {
 	case "code":
 		newCode, err := strconv.Atoi(newValue)
@@ -221,7 +227,7 @@ func adminUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 
 		break
-	case "name", "cat", "category", "image", "image-url", "url", "imageurl", "image url":
+	case "name", "cat", "category", "image", "image-url", "url", "imageurl", "img":
 		err = crud.UpdateProducts(colToUpdate, newValue, code)
 		if err != nil {
 			fmt.Fprint(w, err)
@@ -274,13 +280,22 @@ func adminDelete(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 		return
 	}
-
 	http.Redirect(w, r, "/admin/panel?login=true", http.StatusSeeOther)
 }
 
 func showProducts(w http.ResponseWriter, r *http.Request) {
-	temp := template.Must(template.ParseFiles("./ui/products.html"))
-	err := temp.Execute(w, nil)
+	products, err := crud.GetAllProducts()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	data := &templateData{
+		Products: products,
+	}
+
+	temp := template.Must(template.ParseFiles("go/src/todotech/ui/products.gohtml"))
+	err = temp.Execute(w, data)
 	if err != nil {
 		log.Fatal(err)
 		return
