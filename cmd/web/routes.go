@@ -12,7 +12,7 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/not-found", notFound)
 	mux.HandleFunc("/products", showProducts)
-	mux.HandleFunc("/admin/read", adminShow)
+	mux.HandleFunc("/products/cart", getProductforCart)
 	mux.HandleFunc("/neworder", newOrder)
 	mux.HandleFunc("/admin", login)
 	mux.HandleFunc("/admin/panel/", adminCRUD)

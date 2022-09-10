@@ -11,17 +11,37 @@ func InsertProducts(code int, name string, cat string, imageUrl string, price fl
 	query := "INSERT INTO products (code,name,cat,price,image_url) VALUES ($1,$2,$3,$4,$5)"
 	result, err := db.Exec(query, code, name, cat, price, imageUrl)
 	if err != nil {
-
 		return err
 	}
 
 	_, err = result.RowsAffected()
 	if err != nil {
-
 		return err
 	}
 
 	return nil
+}
+
+func GetProductByCode(code int) (*Products, error) {
+	db, err := makeCN()
+	if err != nil {
+		return nil, err
+	}
+
+	query := "SELECT * FROM products WHERE code = $1"
+	row := db.QueryRow(query, code)
+
+	p := &Products{}
+
+	if err = row.Scan(&p.Code, &p.Name, &p.Cat, &p.Price, &p.ImageUrl); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, sql.ErrNoRows
+		} else {
+			return nil, err
+		}
+	}
+
+	return p, err
 }
 
 func GetAllProducts() ([]*Products, error) {

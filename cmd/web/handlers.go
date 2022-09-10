@@ -165,17 +165,21 @@ func adminCreate(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin/panel?login=true", http.StatusSeeOther)
 }
 
-func adminShow(w http.ResponseWriter, r *http.Request) {
-	products, err := crud.GetAllProducts()
+func getProductforCart(w http.ResponseWriter, r *http.Request) {
+	var code int
+	err := json.NewDecoder(r.Body).Decode(&code)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(products)
+	product, err := crud.GetProductByCode(code)
 	if err != nil {
-		log.Fatal(err)
+		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
 	}
+
+	json.NewEncoder(w).Encode(product)
 }
 
 func adminUpdate(w http.ResponseWriter, r *http.Request) {
